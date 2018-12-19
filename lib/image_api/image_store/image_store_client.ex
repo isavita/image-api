@@ -11,7 +11,11 @@ defmodule ImageApi.ImageStore.ImageStoreClient do
   @doc "Downloads file from url if it is not more than 2MB."
   @spec download_image(String.t()) :: {:ok, String.t()} | {:error, String.t()} | no_return()
   def download_image(url) do
-    Download.from(url, path: image_path(url), max_file_size: @max_file_size)
+    case Download.from(url, path: image_path(url), max_file_size: @max_file_size) do
+      {:ok, path} -> {:ok, path}
+      {:error, reason} -> {:error, reason}
+      _ -> {:error, "cannot process the image"}
+    end
   end
 
   @doc "Removes the image and the directory in which the image is it."

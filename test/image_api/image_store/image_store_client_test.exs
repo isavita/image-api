@@ -13,8 +13,16 @@ defmodule ImageApi.ImageStore.ImageStoreClientTest do
 
     test "returns file too big error when the file is bigger than 2MB" do
       url = "http://speedtest.ftp.otenet.gr/files/test10Mb.db"
+      expected = {:error, :file_size_is_too_big}
 
-      assert {:error, :file_size_is_too_big} = ImageStoreClient.download_image(url)
+      assert ImageStoreClient.download_image(url) == expected
+    end
+
+    test "returns an error when the file cannod be downloaded" do
+      url = "http://randomhost.com/does_not_exist_image.jpg"
+      expected = {:error, "cannot process the image"}
+
+      assert ImageStoreClient.download_image(url) == expected
     end
   end
 
