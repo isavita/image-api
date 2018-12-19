@@ -55,5 +55,8 @@ config :image_api, ImageApi.Repo,
   hostname: "localhost",
   pool_size: 10
 
-# Image resizing client
-config :image_api, :image_resize_api, ImageApi.ImageResize.ImageMagickClient
+# Image manipulation client
+config :image_api, :image_manipulation_api, ImageApi.ImageManipulation.ImageManipulationClient
+
+# Image store client
+config :image_api, :image_store, ImageApi.ImageStore.ImageStoreClient

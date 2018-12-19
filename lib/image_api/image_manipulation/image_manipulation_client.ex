@@ -1,6 +1,11 @@
-defmodule ImageApi.ImageResize.ImageMagickClient do
-  import Mogrify
+defmodule ImageApi.ImageManipulation.ImageManipulationClient do
+  @moduledoc """
+  Adapter for integration with Image Magick using Mogrify library.
+  """
 
+  require Mogrify
+
+  @doc "Gets image's metadata."
   @spec get_image_info(String.t()) :: {:ok, map} | {:error, String.t()}
   def get_image_info(path) do
     with {:ok, size} <- get_image_size(path),
@@ -22,7 +27,7 @@ defmodule ImageApi.ImageResize.ImageMagickClient do
 
   defp do_get_image_info(path) do
     try do
-      path |> open() |> verbose() |> (&{:ok, &1}).()
+      path |> Mogrify.open() |> Mogrify.verbose() |> (&{:ok, &1}).()
     rescue
       MatchError -> {:error, "file format is not supported"}
     end

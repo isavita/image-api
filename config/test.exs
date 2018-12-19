@@ -17,5 +17,8 @@ config :image_api, ImageApi.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
-# Image resizing client
-config :image_api, :image_resize_api, ImageApi.ImageResize.ImageMagickClient
+# Image manipulation client
+config :image_api, :image_manipulation_api, ImageApi.ImageManipulation.ImageManipulationFake
+
+# Image store client
+config :image_api, :image_store, ImageApi.ImageStore.ImageStoreFake

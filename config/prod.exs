@@ -70,5 +70,8 @@ config :logger, level: :info
 # separately.
 import_config "prod.secret.exs"
 
-# Image resizing client
-config :image_api, :image_resize_api, ImageApi.ImageResize.ImageMagickClient
+# Image manipulation client
+config :image_api, :image_manipulation_api, ImageApi.ImageManipulation.ImageManipulationClient
+
+# Image store client
+config :image_api, :image_store, ImageApi.ImageStore.ImageStoreClient

@@ -5,7 +5,9 @@ defmodule ImageApiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ImageApiWeb do
+  scope "/", ImageApiWeb do
     pipe_through :api
+
+    post "images/actions/validate", ImageController, :validate
   end
 end

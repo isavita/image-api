@@ -1,6 +1,6 @@
-defmodule ImageApi.ImageResize.ImageMagickClientTest do
+defmodule ImageApi.ImageManipulation.ImageManipulationClientTest do
   use ExUnit.Case
-  alias ImageApi.ImageResize.ImageMagickClient
+  alias ImageApi.ImageManipulation.ImageManipulationClient
 
   describe "get_image_info/1" do
     setup do
@@ -10,20 +10,21 @@ defmodule ImageApi.ImageResize.ImageMagickClientTest do
     test "gets information for the size and format of an image when the image exists", %{
       path: path
     } do
-      expected = {:ok, %{format: "jpeg", size: 12451, width: 100, height: 150}}
+      expected = {:ok, %{format: "jpeg", size: 12_451, width: 100, height: 150}}
 
-      assert ImageMagickClient.get_image_info(path) == expected
+      assert ImageManipulationClient.get_image_info(path) == expected
     end
 
     test "returns a format error when the file is not an image" do
       path = "test/fixtures/text.txt"
 
-      assert {:error, "file format is not supported"} = ImageMagickClient.get_image_info(path)
+      assert {:error, "file format is not supported"} =
+               ImageManipulationClient.get_image_info(path)
     end
 
     test "returns a file error when the file does not exist" do
       assert {:error, "file does not exist"} =
-               ImageMagickClient.get_image_info("does_not_exist.jpg")
+               ImageManipulationClient.get_image_info("does_not_exist.jpg")
     end
   end
 end

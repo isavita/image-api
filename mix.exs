@@ -20,7 +20,7 @@ defmodule ImageApi.MixProject do
   def application do
     [
       mod: {ImageApi.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :download]
     ]
   end
 
@@ -41,7 +41,8 @@ defmodule ImageApi.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:mogrify, "~> 0.7.0"}
+      {:mogrify, "~> 0.7.0"},
+      {:download, "~> 0.0.4"}
     ]
   end
 
