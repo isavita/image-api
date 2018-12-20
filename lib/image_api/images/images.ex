@@ -27,6 +27,7 @@ defmodule ImageApi.Images do
 
   Returns {:error, reason} if the image couldn't be successfully resized.
   """
+  @spec resize_image(map()) :: {:ok, String.t()} | {:error, String.t()}
   def resize_image(params) do
     with {:ok, image_path} <- download_image(params["image_url"]),
          {:ok, resized_image_path} <- do_resize_image(image_path, params) do

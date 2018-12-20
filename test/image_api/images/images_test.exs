@@ -15,12 +15,12 @@ defmodule ImageApi.ImagesTest do
   end
 
   describe "resize_image/1" do
-    setup do
-      {:ok, params: %{"image_url" => "failure.png"}}
+    test "returns path to the resized image if the image was successfully processed" do
+      assert Images.resize_image(%{"image_url" => "success.png"}) == {:ok, "fake_path.jpg"}
     end
 
-    test "returns an error if the image wasn't successfully processed", %{params: params} do
-      assert {:error, _} = Images.resize_image(params)
+    test "returns an error if the image wasn't successfully processed" do
+      assert {:error, _} = Images.resize_image(%{"image_url" => "failure.png"})
     end
   end
 end

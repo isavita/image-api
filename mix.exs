@@ -42,7 +42,8 @@ defmodule ImageApi.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:mogrify, "~> 0.7.0"},
-      {:download, "~> 0.0.4"}
+      {:download, "~> 0.0.4"},
+      {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
     ]
   end
 

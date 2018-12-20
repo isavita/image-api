@@ -43,6 +43,9 @@ defmodule ImageApi.ImageStore.ImageStoreClientTest do
       expected = {:ok, [directory, image_path]}
 
       assert ImageStoreClient.remove_image(image_path) == expected
+
+      refute File.exists?(image_path)
+      refute File.exists?(directory)
     end
   end
 end
