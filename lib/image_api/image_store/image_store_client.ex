@@ -1,16 +1,16 @@
 defmodule ImageApi.ImageStore.ImageStoreClient do
   @moduledoc """
-  Adapter for downloading images from a given url.
+  Adapter for managing images storing.
   """
 
   require Download
 
   @max_file_size 2 * 1024 * 1024
-  @store_path "/tmp/images/"
+  @store_path Application.app_dir(:image_api, "priv/images")
 
   @doc "Downloads file from url if it is not more than 2MB."
   @spec download_image(String.t()) :: {:ok, String.t()} | {:error, String.t()} | no_return()
-  def download_image(url) do
+  def download_image(url) when is_binary(url) do
     case Download.from(url, path: image_path(url), max_file_size: @max_file_size) do
       {:ok, path} -> {:ok, path}
       {:error, reason} -> {:error, reason}
@@ -20,7 +20,7 @@ defmodule ImageApi.ImageStore.ImageStoreClient do
 
   @doc "Removes the image and the directory in which the image is it."
   @spec remove_image(String.t()) :: {:ok, list()} | {:error, any(), any()}
-  def remove_image(path) do
+  def remove_image(path) when is_binary(path) do
     path |> Path.dirname() |> File.rm_rf()
   end
 
@@ -41,7 +41,7 @@ defmodule ImageApi.ImageStore.ImageStoreClient do
   end
 
   defp directory_path do
-    @store_path <> Ecto.UUID.generate() <> "/"
+    @store_path <> "/" <> Ecto.UUID.generate() <> "/"
   end
 
   defp extract_file_name(url) do

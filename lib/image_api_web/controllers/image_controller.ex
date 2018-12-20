@@ -12,7 +12,7 @@ defmodule ImageApiWeb.ImageController do
     conn |> json(response)
   end
 
-  def resize(conn, %{"image_url" => image_url} = params) do
+  def resize(conn, %{"image_url" => _} = params) do
     case Images.resize_image(params) do
       {:ok, resized_image_url} ->
         conn |> json(%{download_url: resized_image_url})
