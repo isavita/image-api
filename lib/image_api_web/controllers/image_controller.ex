@@ -11,4 +11,14 @@ defmodule ImageApiWeb.ImageController do
 
     conn |> json(response)
   end
+
+  def resize(conn, %{"image_url" => image_url} = params) do
+    case Images.resize_image(params) do
+      {:ok, resized_image_url} ->
+        conn |> json(%{download_url: resized_image_url})
+
+      {:error, reason} ->
+        conn |> put_status(:unprocessable_entity) |> json(%{error: reason})
+    end
+  end
 end

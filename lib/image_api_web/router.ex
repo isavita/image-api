@@ -9,5 +9,6 @@ defmodule ImageApiWeb.Router do
     pipe_through :api
 
     post "images/actions/validate", ImageController, :validate
+    post "images/actions/resize", ImageController, :resize
   end
 end

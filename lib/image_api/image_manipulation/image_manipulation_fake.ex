@@ -13,4 +13,7 @@ defmodule ImageApi.ImageManipulation.ImageManipulationFake do
        width: 600
      }}
   end
+
+  @doc false
+  def resize_image(_image_path, _params), do: {:ok, "fake_path.jpg"}
 end

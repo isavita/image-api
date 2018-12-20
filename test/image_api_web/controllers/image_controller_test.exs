@@ -2,7 +2,7 @@ defmodule ImageApiWeb.ImageControllerTest do
   use ImageApiWeb.ConnCase
 
   describe "validate/2" do
-    test "responds with image info if given valid image", %{conn: conn} do
+    test "responds with image metadata if given valid image", %{conn: conn} do
       response =
         conn
         |> post(Routes.image_path(conn, :validate), %{"image_url" => "success.jpg"})
@@ -17,6 +17,23 @@ defmodule ImageApiWeb.ImageControllerTest do
         },
         "valid" => true
       }
+
+      assert response == expected
+    end
+  end
+
+  describe "resize/2" do
+    test "responds with url for downloading the resized image if given valid image", %{conn: conn} do
+      response =
+        conn
+        |> post(Routes.image_path(conn, :resize), %{
+          "image_url" => "success.jpg",
+          "width" => 200,
+          "height" => 100
+        })
+        |> json_response(200)
+
+      expected = %{"download_url" => "fake_path.jpg"}
 
       assert response == expected
     end
